@@ -120,6 +120,16 @@ export function LibraryView() {
       ) : games.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-line-strong py-16 text-center text-sm text-muted">
           {filter === 'updates' ? 'Tous vos jeux sont à jour.' : 'Aucun jeu à afficher.'}
+          {snapshot.games.length === 0 && (
+            <div className="mt-4">
+              <button
+                onClick={() => navigate({ name: 'settings' })}
+                className="rounded-lg bg-white/[0.06] px-4 py-2 text-sm font-medium text-fg ring-1 ring-line transition hover:bg-white/10"
+              >
+                Configurer la source des jeux
+              </button>
+            </div>
+          )}
         </div>
       ) : (
         <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6">

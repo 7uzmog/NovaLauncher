@@ -1,4 +1,6 @@
 import { app } from 'electron'
+import { existsSync, readFileSync } from 'node:fs'
+import { join } from 'node:path'
 import electronUpdater from 'electron-updater'
 import type { LauncherUpdateState } from '@shared/types'
 
@@ -16,6 +18,12 @@ export class LauncherUpdater {
       this.state = { state: 'disabled', reason: 'Mode développement' }
       return
     }
+    // app-update.yml est généré par electron-builder à partir de la section "publish".
+    const config = join(process.resourcesPath, 'app-update.yml')
+    if (!existsSync(config) || /owner:\s*OWNER/.test(readFileSync(config, 'utf8'))) {
+      this.state = { state: 'disabled', reason: 'dépôt GitHub non configuré dans electron-builder.yml' }
+      return
+    }
     autoUpdater.autoDownload = true
     autoUpdater.autoInstallOnAppQuit = true
     autoUpdater.on('checking-for-update', () => this.set({ state: 'checking' }))
@@ -23,7 +31,7 @@ export class LauncherUpdater {
     autoUpdater.on('update-not-available', () => this.set({ state: 'not-available' }))
     autoUpdater.on('download-progress', (p) => this.set({ state: 'downloading', percent: p.percent }))
     autoUpdater.on('update-downloaded', (info) => this.set({ state: 'downloaded', version: info.version }))
-    autoUpdater.on('error', (err) => this.set({ state: 'error', message: err?.message ?? String(err) }))
+    autoUpdater.on('error', (err) => this.set({ state: 'error', message: firstLine(err) }))
   }
 
   onState(l: Listener): () => void {
@@ -45,11 +53,15 @@ export class LauncherUpdater {
     try {
       await autoUpdater.checkForUpdates()
     } catch (err) {
-      this.set({ state: 'error', message: (err as Error).message })
+      this.set({ state: 'error', message: firstLine(err) })
     }
   }
 
   install(): void {
     if (this.state.state === 'downloaded') autoUpdater.quitAndInstall(false, true)
   }
+}
+
+function firstLine(err: unknown): string {
+  return String((err as Error)?.message ?? err).split('\n')[0].slice(0, 200)
 }

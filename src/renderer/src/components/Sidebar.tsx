@@ -7,7 +7,7 @@ import { gameStatus, overallProgress } from '../lib/status'
 import { GameIcon } from './GameArt'
 
 export function Sidebar() {
-  const { snapshot, view, navigate, refresh, appInfo } = useLauncher()
+  const { snapshot, view, navigate, refresh, appInfo, setBackdrop } = useLauncher()
   const [spinning, setSpinning] = useState(false)
 
   const onRefresh = async () => {
@@ -39,7 +39,10 @@ export function Sidebar() {
         </button>
       </div>
 
-      <div className="scroll-area flex-1 space-y-0.5 px-2 pb-3">
+      <div
+        className="scroll-area flex-1 space-y-0.5 px-2 pb-3"
+        onMouseLeave={() => setBackdrop(view.name === 'game' ? view.id : null)}
+      >
         {snapshot.games.map((g) => (
           <SidebarGame
             key={g.id}

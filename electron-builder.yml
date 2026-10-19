@@ -1,0 +1,52 @@
+# Configuration de l'installeur — https://www.electron.build
+appId: com.nova.launcher
+productName: Nova Launcher
+copyright: Copyright © 2026 Nova
+
+directories:
+  output: release/${version}
+  buildResources: build
+
+files:
+  - out/**
+  - resources/**
+  - package.json
+asarUnpack:
+  - resources/**
+npmRebuild: false
+
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+  icon: build/icon.png
+  artifactName: ${productName}-Setup-${version}.${ext}
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: always
+  createStartMenuShortcut: true
+  shortcutName: Nova Launcher
+  runAfterFinish: true
+  # Les jeux installés (%APPDATA%/Nova Launcher/games) sont conservés à la désinstallation.
+  deleteAppDataOnUninstall: false
+
+mac:
+  target: [dmg, zip]
+  icon: build/icon.png
+  category: public.app-category.games
+
+linux:
+  target: [AppImage]
+  icon: build/icon.png
+  category: Game
+
+# Auto-update du launcher : electron-updater lit les releases de ce dépôt.
+# Remplacez OWNER/REPO par votre dépôt GitHub (et définissez GH_TOKEN pour publier).
+publish:
+  provider: github
+  owner: OWNER
+  repo: REPO
+  releaseType: release
