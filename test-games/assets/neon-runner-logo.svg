@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 240">
+  <defs><linearGradient id="t" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#ff2e88"/></linearGradient></defs>
+  <text x="0" y="168" font-family="Segoe UI, Arial Black, sans-serif" font-weight="900" font-size="150" letter-spacing="-3" fill="url(#t)">NEON RUNNER</text>
+  <rect x="4" y="200" width="260" height="10" rx="5" fill="#ff2e88"/>
+</svg>

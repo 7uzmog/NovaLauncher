@@ -1,0 +1,85 @@
+{
+  "launcher": {
+    "name": "Nova Launcher"
+  },
+  "games": [
+    {
+      "id": "neon-runner",
+      "name": "Neon Runner",
+      "tagline": "Course effrénée sur les toits d’une mégalopole synthwave.",
+      "description": "Neon Runner est un jeu de plateforme nerveux où chaque seconde compte. Sautez, glissez et courez sur les murs à travers une ville baignée de néons.\n\nMaîtrisez le flow, enchaînez les combos et battez vos propres records en mode chrono.",
+      "developer": "Studio Nova",
+      "genres": [
+        "Action",
+        "Plateforme"
+      ],
+      "icon": "test-games/assets/neon-runner-icon.svg",
+      "logo": "test-games/assets/neon-runner-logo.svg",
+      "banner": "test-games/assets/neon-runner-banner.svg",
+      "screenshots": [
+        "test-games/assets/neon-runner-shot1.svg",
+        "test-games/assets/neon-runner-shot2.svg",
+        "test-games/assets/neon-runner-shot3.svg"
+      ],
+      "version": "1.0.0",
+      "downloadUrl": "test-games/dist/neon-runner-1.0.0.zip",
+      "sha256": "5220b5973057dcfba39d466909c529b6fab9b2ef9a5607d4033a5d8703fa9f9d",
+      "size": 18877973,
+      "executable": "NeonRunner.exe",
+      "changelog": [
+        {
+          "version": "1.0.0",
+          "date": "2026-09-01",
+          "notes": [
+            "Sortie initiale",
+            "12 niveaux, 3 personnages jouables",
+            "Support manette Xbox et PlayStation"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "echoes-of-aether",
+      "name": "Echoes of Aether",
+      "tagline": "Un RPG contemplatif dans un monde suspendu entre ciel et brume.",
+      "description": "Explorez les îles flottantes d’Aether, percez le secret des Échos et façonnez votre propre chemin grâce à un arbre de talents en constante évolution.\n\nUne aventure narrative d’une vingtaine d’heures, avec une bande-son originale.",
+      "developer": "Studio Nova",
+      "genres": [
+        "RPG",
+        "Aventure"
+      ],
+      "icon": "test-games/assets/echoes-of-aether-icon.svg",
+      "logo": "test-games/assets/echoes-of-aether-logo.svg",
+      "banner": "test-games/assets/echoes-of-aether-banner.svg",
+      "screenshots": [
+        "test-games/assets/echoes-of-aether-shot1.svg",
+        "test-games/assets/echoes-of-aether-shot2.svg",
+        "test-games/assets/echoes-of-aether-shot3.svg"
+      ],
+      "version": "2.3.0",
+      "downloadUrl": "test-games/dist/echoes-of-aether-2.3.0.zip",
+      "sha256": "0aa20e5465b0b98a587f27d89f14c962c6883eb7ea8f90b9df421be285841ab2",
+      "size": 18878114,
+      "executable": "bin/EchoesOfAether.exe",
+      "changelog": [
+        {
+          "version": "2.3.0",
+          "date": "2026-10-05",
+          "notes": [
+            "Nouvelle zone : la Forêt Suspendue",
+            "Refonte de l’arbre de talents",
+            "Sauvegarde automatique toutes les 5 minutes"
+          ]
+        },
+        {
+          "version": "2.2.0",
+          "date": "2026-08-20",
+          "notes": [
+            "Ajout du mode photo",
+            "Optimisations : +20 % d’images par seconde"
+          ]
+        }
+      ]
+    }
+  ]
+}

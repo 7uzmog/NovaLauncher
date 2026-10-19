@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720">
+  <defs><linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b3d2e"/><stop offset="1" stop-color="#05060a"/></linearGradient></defs>
+  <rect width="1280" height="720" fill="url(#s)"/>
+  <rect x="80" y="520" width="90" height="200" rx="6" fill="#22d3ee" opacity="0.25"/><rect x="210" y="409" width="90" height="311" rx="6" fill="#22d3ee" opacity="0.45"/><rect x="340" y="298" width="90" height="422" rx="6" fill="#22d3ee" opacity="0.65"/><rect x="470" y="447" width="90" height="273" rx="6" fill="#22d3ee" opacity="0.25"/><rect x="600" y="336" width="90" height="384" rx="6" fill="#22d3ee" opacity="0.45"/><rect x="730" y="485" width="90" height="235" rx="6" fill="#22d3ee" opacity="0.65"/><rect x="860" y="374" width="90" height="346" rx="6" fill="#22d3ee" opacity="0.25"/><rect x="990" y="263" width="90" height="457" rx="6" fill="#22d3ee" opacity="0.45"/><rect x="1120" y="412" width="90" height="308" rx="6" fill="#22d3ee" opacity="0.65"/>
+  <circle cx="860" cy="220" r="70" fill="#fff" opacity=".9"/>
+  <text x="40" y="680" font-family="Segoe UI, sans-serif" font-size="28" fill="#fff" opacity=".6">Echoes of Aether — capture 3</text>
+</svg>

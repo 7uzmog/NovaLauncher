@@ -1,0 +1,10 @@
+node_modules/
+out/
+dist/
+release/
+test-games/dist/
+test-games/src/*.exe
+e2e-shots/
+*.log
+.DS_Store
+test-games/build/

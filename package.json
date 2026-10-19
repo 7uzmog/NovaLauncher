@@ -1,0 +1,48 @@
+{
+  "name": "nova-launcher",
+  "productName": "Nova Launcher",
+  "version": "0.1.0",
+  "description": "Launcher pour installer, mettre à jour et lancer mes jeux",
+  "author": "Nova",
+  "private": true,
+  "main": "./out/main/index.js",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "npm run typecheck && electron-vite build",
+    "preview": "electron-vite preview",
+    "typecheck": "tsc --noEmit -p tsconfig.node.json && tsc --noEmit -p tsconfig.web.json",
+    "make:test-games": "node scripts/make-test-games.mjs",
+    "e2e": "node scripts/e2e.mjs",
+    "dist": "npm run build && electron-builder --win --publish never",
+    "dist:dir": "npm run build && electron-builder --win --dir --publish never",
+    "release": "npm run build && electron-builder --win --publish always"
+  },
+  "dependencies": {
+    "electron-store": "^12.0.0",
+    "electron-updater": "^6.8.9",
+    "extract-zip": "^2.0.1",
+    "semver": "^7.8.5"
+  },
+  "devDependencies": {
+    "@fontsource-variable/inter": "^5.3.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/semver": "^7.8.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "electron": "^44.9.0",
+    "electron-builder": "^26.15.3",
+    "electron-vite": "^6.0.0",
+    "lucide-react": "^1.59.0",
+    "motion": "^14.4.0",
+    "playwright-core": "^1.64.1",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "tailwindcss": "^4.3.3",
+    "typescript": "~5.9",
+    "vite": "^8.3.4",
+    "yazl": "^3.3.1",
+    "zustand": "^5.0.15"
+  }
+}

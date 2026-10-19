@@ -1,0 +1,38 @@
+/*
+ * ============================================================
+ *  THÈME DU LAUNCHER — modifiez ici l'identité visuelle.
+ *  Chaque variable --color-* devient une classe Tailwind
+ *  (bg-accent, text-muted, border-line, ...).
+ * ============================================================
+ */
+@theme {
+  /* Fonds */
+  --color-bg: #08090d;
+  --color-panel: #0f1117;
+  --color-panel-2: #151821;
+  --color-panel-3: #1d212d;
+  --color-line: rgb(255 255 255 / 0.07);
+  --color-line-strong: rgb(255 255 255 / 0.14);
+
+  /* Texte */
+  --color-fg: #eef0f6;
+  --color-muted: #9097a9;
+  --color-subtle: #5d6475;
+
+  /* Accent principal (boutons Jouer, sélection, liens) */
+  --color-accent: #7c5cff;
+  --color-accent-strong: #9a80ff;
+  --color-accent-fg: #ffffff;
+
+  /* Statuts */
+  --color-update: #f5a524;
+  --color-success: #2fd27a;
+  --color-danger: #ff5468;
+
+  /* Typo & formes */
+  --font-sans: 'Inter Variable', 'Segoe UI Variable', 'Segoe UI', system-ui, sans-serif;
+  --radius-card: 16px;
+
+  /* Animations */
+  --ease-snappy: cubic-bezier(0.22, 1, 0.36, 1);
+}

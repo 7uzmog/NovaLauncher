@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b3d2e"/><stop offset="1" stop-color="#05060a"/></linearGradient>
+    <radialGradient id="sun" cx="68%" cy="42%" r="40%"><stop offset="0" stop-color="#22d3ee" stop-opacity=".95"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></radialGradient>
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22d3ee" stop-opacity=".7"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#g)"/>
+  <rect width="1920" height="1080" fill="url(#sun)"/>
+  <circle cx="1300" cy="460" r="210" fill="#22d3ee" opacity=".85"/>
+  <rect x="1060" y="470" width="480" height="6" fill="#0b3d2e"/><rect x="1060" y="496" width="480" height="8" fill="#0b3d2e"/><rect x="1060" y="522" width="480" height="10" fill="#0b3d2e"/><rect x="1060" y="548" width="480" height="12" fill="#0b3d2e"/><rect x="1060" y="574" width="480" height="14" fill="#0b3d2e"/><rect x="1060" y="600" width="480" height="16" fill="#0b3d2e"/><rect x="1060" y="626" width="480" height="18" fill="#0b3d2e"/>
+  <path d="M0 720 L320 540 L520 650 L760 480 L1000 700 L1200 620 L1500 720 L1920 560 L1920 1080 L0 1080Z" fill="#05060a" opacity=".85"/>
+  <g stroke="url(#floor)" stroke-width="2" opacity=".8">
+    <line x1="600" y1="760" x2="-1560" y2="1080"/><line x1="660" y1="760" x2="-1140" y2="1080"/><line x1="720" y1="760" x2="-720" y2="1080"/><line x1="780" y1="760" x2="-300" y2="1080"/><line x1="840" y1="760" x2="120" y2="1080"/><line x1="900" y1="760" x2="540" y2="1080"/><line x1="960" y1="760" x2="960" y2="1080"/><line x1="1020" y1="760" x2="1380" y2="1080"/><line x1="1080" y1="760" x2="1800" y2="1080"/><line x1="1140" y1="760" x2="2220" y2="1080"/><line x1="1200" y1="760" x2="2640" y2="1080"/><line x1="1260" y1="760" x2="3060" y2="1080"/><line x1="1320" y1="760" x2="3480" y2="1080"/>
+    <line x1="0" y1="780" x2="1920" y2="780"/><line x1="0" y1="789" x2="1920" y2="789"/><line x1="0" y1="816" x2="1920" y2="816"/><line x1="0" y1="861" x2="1920" y2="861"/><line x1="0" y1="924" x2="1920" y2="924"/><line x1="0" y1="1005" x2="1920" y2="1005"/>
+  </g>
+</svg>
