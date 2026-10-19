@@ -19,7 +19,7 @@ export function TitleBar() {
       onDoubleClick={() => window.api.window.toggleMaximize()}
     >
       <div className="flex items-center gap-2.5 text-[13px] font-semibold tracking-wide text-fg/90">
-        <BrandMark size={18} />
+        <BrandMark size={22} />
         {BRANDING.name}
       </div>
 

@@ -12,6 +12,7 @@ Electron + React + Vite + TypeScript, Tailwind CSS, Zustand, electron-store, ele
 ## Sommaire
 
 - [Démarrage rapide](#démarrage-rapide)
+- [Connecter vos jeux (pas à pas)](#connecter-vos-jeux-pas-à-pas)
 - [Structure du projet](#structure-du-projet)
 - [Personnaliser l'identité (nom, couleurs, logo)](#personnaliser-lidentité)
 - [Le manifeste `games.json`](#le-manifeste-gamesjson)
@@ -54,7 +55,74 @@ puis mettez `http://127.0.0.1:8787/games.example.json` comme URL du manifeste.
 | `npm run dist` | Installeur Windows NSIS dans `release/<version>/` |
 | `npm run release` | Build + publication sur GitHub Releases (auto-update) |
 | `npm run make:test-games` | Régénère les jeux de démo et les manifestes d'exemple |
-| `npm run make:icon` | Régénère l'icône placeholder (`build/icon.png`, `resources/icon.png`) |
+| `npm run make:icon` | Génère toutes les icônes depuis `assets-src/icon-source.*` |
+| `npm run package-game` | Zippe un build de jeu, calcule le SHA-256 et met à jour `games.json` |
+
+## Connecter vos jeux (pas à pas)
+
+Configuration recommandée : **un dépôt GitHub public** (ex. `mon-compte/nova-games`) qui contient
+`games.json` + les images, et dont les **Releases** hébergent les zips des jeux. Gratuit, rapide, et la reprise
+de téléchargement fonctionne.
+
+### 1. Une seule fois : créer le dépôt du catalogue
+
+```
+nova-games/
+  games.json
+  assets/
+    mon-jeu-icon.png      256×256
+    mon-jeu-logo.png      PNG transparent, large
+    mon-jeu-banner.jpg    1920×1080
+    mon-jeu-shot1.jpg     captures d'écran
+```
+
+Dans `games.json`, les chemins d'images peuvent rester **relatifs** (`"banner": "assets/mon-jeu-banner.jpg"`) :
+ils sont résolus par rapport à l'URL du manifeste.
+
+### 2. Une seule fois : pointer le launcher sur ce catalogue
+
+Dans `src/shared/branding.ts` :
+
+```ts
+defaultManifestUrl: 'https://raw.githubusercontent.com/mon-compte/nova-games/main/games.json',
+```
+
+(Chaque joueur peut aussi la changer dans *Paramètres → URL du manifeste*.)
+
+### 3. À chaque version d'un jeu
+
+Exportez le build de votre jeu (Unity, Godot, Unreal…) dans un dossier, puis :
+
+```bash
+npm run package-game -- "C:/Builds/MonJeu" --id mon-jeu --name "Mon Jeu" --version 1.0.0 --exe MonJeu.exe --github mon-compte/nova-games --notes "Sortie initiale;Support manette" --manifest ../nova-games/games.json
+```
+
+Le script :
+
+- zippe le dossier dans `publish/mon-jeu-1.0.0.zip` ;
+- calcule le **SHA-256** et la taille ;
+- ajoute ou met à jour l'entrée du jeu dans `games.json` (version, URL, hash, taille, notes de version) ;
+- affiche la commande `gh release create …` pour uploader le zip.
+
+Il reste à exécuter cette commande, compléter la première fois la description et les images du jeu dans
+`games.json`, puis `git push` le dépôt du catalogue. Les launchers affichent le jeu (ou « Mettre à jour ») au
+prochain démarrage, au bouton ⟳ ou dans les 30 minutes.
+
+Pour les versions suivantes, `--name` et `--exe` sont facultatifs : seule la version change.
+
+> Pas de GitHub ? Remplacez `--github …` par `--base-url https://mon-site.com/jeux/` et uploadez le zip à cet
+> endroit (S3, Cloudflare R2, FTP…).
+
+### 4. Changer l'icône du launcher
+
+Placez votre image dans `assets-src/icon-source.png` (png/jpg/webp, fond blanc accepté), puis :
+
+```bash
+npm run make:icon
+```
+
+Le fond blanc est retiré automatiquement ; l'icône de l'exe, de l'installeur, de la fenêtre et le logo de la
+barre de titre sont régénérés.
 
 ## Structure du projet
 
@@ -94,8 +162,7 @@ electron-builder.yml    Configuration de l'installeur et de l'auto-update
 | Couleurs, accent, typo, arrondis | `src/renderer/src/theme.css` (chaque `--color-*` devient une classe Tailwind : `bg-accent`, `text-muted`…) |
 | Nom affiché, URL du manifeste par défaut, fréquence de vérification | `src/shared/branding.ts` |
 | Nom de l'exécutable et du dossier `%APPDATA%` | `productName` dans `package.json` **et** `electron-builder.yml` |
-| Logo dans la barre de titre | `src/renderer/src/components/BrandMark.tsx` |
-| Icône de l'app / de l'installeur | `build/icon.png` et `resources/icon.png` (PNG 512×512) |
+| Logo, icône de l'app et de l'installeur | `assets-src/icon-source.*` puis `npm run make:icon` |
 | Titre de la fenêtre | `<title>` dans `src/renderer/index.html` |
 
 Chaque jeu peut aussi définir son propre `accentColor` dans le manifeste : sa page prend alors cette couleur.
