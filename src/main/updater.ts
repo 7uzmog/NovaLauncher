@@ -8,6 +8,18 @@ const { autoUpdater } = electronUpdater
 
 type Listener = (s: LauncherUpdateState) => void
 
+/** Faux tant qu'electron-builder.yml pointe encore sur le dépôt d'exemple OWNER/REPO. */
+function isPublishConfigured(): boolean {
+  // app-update.yml est généré par electron-builder à partir de la section "publish".
+  const config = join(process.resourcesPath, 'app-update.yml')
+  if (!existsSync(config)) return false
+  return !/^owner:\s*OWNER\s*$/m.test(readFileSync(config, 'utf8'))
+}
+
+function firstLine(err: unknown): string {
+  return String((err as Error)?.message ?? err).split('\n')[0].slice(0, 200)
+}
+
 /** Auto-update du launcher via electron-updater (GitHub Releases, cf. electron-builder.yml). */
 export class LauncherUpdater {
   private state: LauncherUpdateState = { state: 'idle' }
@@ -18,9 +30,7 @@ export class LauncherUpdater {
       this.state = { state: 'disabled', reason: 'Mode développement' }
       return
     }
-    // app-update.yml est généré par electron-builder à partir de la section "publish".
-    const config = join(process.resourcesPath, 'app-update.yml')
-    if (!existsSync(config) || /owner:\s*OWNER/.test(readFileSync(config, 'utf8'))) {
+    if (!isPublishConfigured()) {
       this.state = { state: 'disabled', reason: 'dépôt GitHub non configuré dans electron-builder.yml' }
       return
     }
@@ -60,8 +70,4 @@ export class LauncherUpdater {
   install(): void {
     if (this.state.state === 'downloaded') autoUpdater.quitAndInstall(false, true)
   }
-}
-
-function firstLine(err: unknown): string {
-  return String((err as Error)?.message ?? err).split('\n')[0].slice(0, 200)
 }
