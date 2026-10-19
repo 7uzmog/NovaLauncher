@@ -44,9 +44,9 @@ linux:
   category: Game
 
 # Auto-update du launcher : electron-updater lit les releases de ce dépôt.
-# Remplacez OWNER/REPO par votre dépôt GitHub (et définissez GH_TOKEN pour publier).
+# Publication : définissez GH_TOKEN (droit d'écriture sur les releases) avant npm run release.
 publish:
   provider: github
-  owner: OWNER
-  repo: REPO
+  owner: 7uzmog
+  repo: NovaLauncher
   releaseType: release
