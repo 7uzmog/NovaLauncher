@@ -4,6 +4,7 @@ export function gameStatus(game: Game, snap: LibrarySnapshot): GameStatus {
   if (snap.installing[game.id]) return 'installing'
   if (snap.running.includes(game.id)) return 'running'
   if (snap.installed[game.id]) return snap.updates.includes(game.id) ? 'update-available' : 'installed'
+  if (game.status === 'development') return 'development'
   if (game.error || !game.downloadUrl) return 'unavailable'
   return 'not-installed'
 }
@@ -36,5 +37,11 @@ export const STATUS_LABEL: Record<GameStatus, string> = {
   'update-available': 'Mise à jour',
   installing: 'Installation',
   running: 'En cours',
-  unavailable: 'Indisponible'
+  unavailable: 'Indisponible',
+  development: 'En développement'
+}
+
+/** Jeu présent sur le disque (ou en train de s'installer) : compté dans « Installés ». */
+export function isOnDisk(status: GameStatus): boolean {
+  return status !== 'not-installed' && status !== 'unavailable' && status !== 'development'
 }

@@ -69,6 +69,22 @@ try {
   await shot('01-library')
   ok('Bibliothèque affichée depuis games.example.json (file://)')
 
+  // 1b. Jeu en développement : fiche visible, aucun téléchargement possible
+  const devCard = page.getByTestId('game-card-project-tempest')
+  if ((await devCard.innerText()).indexOf('En développement') === -1) fail('badge « En développement » absent de la carte')
+  if ((await page.getByTestId('sidebar-game-project-tempest').getAttribute('data-status')) !== 'development')
+    fail('barre latérale : statut development attendu')
+  const installedCount = (await page.locator('body').innerText()).match(/(\d+) installés?/)?.[1]
+  if (installedCount !== '0') fail(`compteur « installé » attendu à 0, obtenu ${installedCount}`)
+  await openGame('project-tempest')
+  if ((await status()) !== 'development') fail('page du jeu : statut development attendu')
+  if (!(await actionButton().isDisabled())) fail('le badge « En développement » ne doit pas être cliquable')
+  const refused = await page.evaluate(() => window.api.games.install('project-tempest'))
+  if (refused.ok) fail("l'installation d'un jeu en développement doit être refusée")
+  if (existsSync(join(gamesDir, 'project-tempest'))) fail('dossier créé pour un jeu en développement')
+  await shot('01b-dev-game')
+  ok('Jeu en développement : badge, barre latérale grisée, installation refusée, autres jeux chargés')
+
   // 2. Bascule sur le serveur HTTP
   await page.evaluate((url) => window.api.settings.set({ manifestUrl: url }), `${server.url}/games.example.json`)
   await page.evaluate(() => window.api.library.refresh())

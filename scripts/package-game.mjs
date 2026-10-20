@@ -107,6 +107,8 @@ const entry = {
     ...(existing?.changelog ?? []).filter((c) => c.version !== o.version)
   ]
 }
+// Publier une version fait sortir le jeu du statut « en développement ».
+delete entry.status
 manifest.games = existing ? manifest.games.map((g) => (g.id === o.id ? entry : g)) : [...manifest.games, entry]
 writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + '\n')
 

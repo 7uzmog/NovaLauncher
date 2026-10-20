@@ -43,10 +43,11 @@ export function GameIcon({ game, size = 36, className = '' }: { game: Game; size
   )
 }
 
-/** Logo du jeu, ou son nom en grande typo si aucun logo n'est fourni. */
+/** Logo du jeu, ou son nom en grande typo si aucun logo n'est fourni (rien si la bannière porte déjà le titre). */
 export function GameLogo({ game, className = '', textClassName = '' }: { game: Game; className?: string; textClassName?: string }) {
   const [failed, setFailed] = useState(false)
   useEffect(() => setFailed(false), [game.logo])
+  if (game.hideTitle) return <h1 className="sr-only">{game.name}</h1>
   if (game.logo && !failed) {
     return (
       <img

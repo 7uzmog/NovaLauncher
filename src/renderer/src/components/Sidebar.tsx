@@ -104,6 +104,8 @@ function SidebarGame({ game, active, onClick }: { game: Game; active: boolean; o
     <button
       onClick={onClick}
       onMouseEnter={() => setBackdrop(game.id)}
+      data-testid={`sidebar-game-${game.id}`}
+      data-status={status}
       className={`group relative flex w-full items-center gap-3 rounded-xl px-2.5 py-2 text-left transition-colors ${
         active ? 'bg-accent/15 text-fg' : 'text-muted hover:bg-white/[0.04] hover:text-fg'
       }`}
@@ -112,10 +114,18 @@ function SidebarGame({ game, active, onClick }: { game: Game; active: boolean; o
       <GameIcon
         game={game}
         size={34}
-        className={`transition ${status === 'not-installed' || status === 'unavailable' ? 'opacity-60 grayscale-[40%]' : ''}`}
+        className={`transition ${
+          status === 'development'
+            ? 'opacity-45 grayscale'
+            : status === 'not-installed' || status === 'unavailable'
+              ? 'opacity-60 grayscale-[40%]'
+              : ''
+        }`}
       />
       <div className="min-w-0 flex-1">
-        <div className="truncate text-[13px] font-medium">{game.name}</div>
+        <div className={`truncate text-[13px] font-medium ${status === 'development' && !active ? 'text-subtle' : ''}`}>
+          {game.name}
+        </div>
         {progress ? (
           <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-white/10">
             <div
@@ -130,6 +140,7 @@ function SidebarGame({ game, active, onClick }: { game: Game; active: boolean; o
             {status === 'installed' && 'Installé'}
             {status === 'not-installed' && 'Non installé'}
             {status === 'unavailable' && 'Indisponible'}
+            {status === 'development' && 'En développement'}
           </div>
         )}
       </div>

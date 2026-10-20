@@ -23,8 +23,8 @@
       ],
       "version": "1.1.0",
       "downloadUrl": "test-games/dist/neon-runner-1.1.0.zip",
-      "sha256": "669bd0236f686975a5b3b0f699eb339bf2c92d448e5009d2f3dbe0116572a546",
-      "size": 25169555,
+      "sha256": "01c21e6e66706257e8cf6763230253b7c8cec404fecf0207e6ca5f918fff7dc5",
+      "size": 25169553,
       "executable": "NeonRunner.exe",
       "changelog": [
         {
@@ -67,8 +67,8 @@
       ],
       "version": "2.3.0",
       "downloadUrl": "test-games/dist/echoes-of-aether-2.3.0.zip",
-      "sha256": "0aa20e5465b0b98a587f27d89f14c962c6883eb7ea8f90b9df421be285841ab2",
-      "size": 18878114,
+      "sha256": "c23b6edfb52d35f1201140d50f9800d84b16c1d6e3c9d603884029c1a8d76358",
+      "size": 18878116,
       "executable": "bin/EchoesOfAether.exe",
       "changelog": [
         {
@@ -88,6 +88,18 @@
             "Optimisations : +20 % d’images par seconde"
           ]
         }
+      ]
+    },
+    {
+      "id": "project-tempest",
+      "name": "Project Tempest",
+      "status": "development",
+      "tagline": "Prochainement : un jeu de tempêtes et de voiliers.",
+      "description": "Jeu en cours de développement. Aucune version téléchargeable pour l’instant.",
+      "developer": "Studio Nova",
+      "genres": [
+        "Aventure",
+        "Navigation"
       ]
     }
   ]

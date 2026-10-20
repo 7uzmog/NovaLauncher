@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'motion/react'
-import { Download, Loader2, Play, RefreshCw, X, Ban } from 'lucide-react'
+import { Download, Hammer, Loader2, Play, RefreshCw, X, Ban } from 'lucide-react'
 import type { Game } from '@shared/types'
 import { useLauncher } from '../store/launcher'
 import { gameStatus, overallProgress, PHASE_LABEL } from '../lib/status'
@@ -104,6 +104,12 @@ export function ActionButton({ game, size = 'lg' }: { game: Game; size?: 'lg' | 
       label: 'Indisponible',
       icon: <Ban size={big ? 18 : 15} />,
       cls: 'bg-white/[0.05] text-subtle cursor-not-allowed',
+      onClick: undefined
+    },
+    development: {
+      label: 'En développement',
+      icon: <Hammer size={big ? 18 : 15} />,
+      cls: 'bg-accent/10 text-accent-strong ring-1 ring-accent/35 cursor-default',
       onClick: undefined
     },
     installing: {

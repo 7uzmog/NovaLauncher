@@ -70,13 +70,21 @@ function GameDetails({ game }: { game: Game }) {
         <div className="mx-auto flex max-w-[1400px] items-center gap-4 px-10 py-4">
           <ActionButton game={game} />
           <div className="ml-4 hidden items-center gap-7 text-xs text-muted xl:flex">
-            <Stat icon={<Tag size={14} />} label="Version">
-              {installed ? `v${installed.version}` : `v${game.version}`}
-              {status === 'update-available' && <span className="text-update"> → v{game.version}</span>}
-            </Stat>
-            <Stat icon={<HardDrive size={14} />} label="Taille">
-              {formatBytes(installed?.sizeOnDisk ?? game.size)}
-            </Stat>
+            {status === 'development' ? (
+              <p className="max-w-md text-[13px] leading-5 text-muted">
+                Pas encore de version téléchargeable. Le jeu apparaîtra ici dès sa sortie.
+              </p>
+            ) : (
+              <>
+                <Stat icon={<Tag size={14} />} label="Version">
+                  {installed ? `v${installed.version}` : `v${game.version}`}
+                  {status === 'update-available' && <span className="text-update"> → v{game.version}</span>}
+                </Stat>
+                <Stat icon={<HardDrive size={14} />} label="Taille">
+                  {formatBytes(installed?.sizeOnDisk ?? game.size)}
+                </Stat>
+              </>
+            )}
             {installed && (
               <>
                 <Stat icon={<Clock size={14} />} label="Temps de jeu">
@@ -216,7 +224,7 @@ function InfoCard({ game }: { game: Game }) {
   const rows: [string, React.ReactNode][] = [
     ['Développeur', game.developer ?? '—'],
     ['Genres', game.genres.join(', ') || '—'],
-    ['Version', `v${game.version}`],
+    ['Version', game.status === 'development' ? 'En développement' : `v${game.version}`],
     ['Taille', formatBytes(game.size)],
     ['Source', game.source === 'github' ? 'GitHub Releases' : 'Manifeste']
   ]

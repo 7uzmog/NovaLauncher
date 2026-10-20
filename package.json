@@ -1,7 +1,7 @@
 {
   "name": "nova-launcher",
   "productName": "Nova Launcher",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Launcher pour installer, mettre à jour et lancer mes jeux",
   "author": "Nova",
   "private": true,
@@ -12,6 +12,7 @@
     "preview": "electron-vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.node.json && tsc --noEmit -p tsconfig.web.json",
     "make:test-games": "node scripts/make-test-games.mjs",
+    "test": "vitest run",
     "e2e": "electron-vite build && node scripts/e2e.mjs",
     "dist": "npm run build && electron-builder --win --publish never",
     "dist:dir": "npm run build && electron-builder --win --dir --publish never",
@@ -45,6 +46,7 @@
     "tailwindcss": "^4.3.3",
     "typescript": "~5.9",
     "vite": "^8.3.4",
+    "vitest": "^5.0.5",
     "yazl": "^3.3.1",
     "zustand": "^5.0.15"
   }

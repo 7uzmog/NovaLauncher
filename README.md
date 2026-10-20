@@ -189,6 +189,7 @@ Le launcher lit un fichier JSON hébergé où vous voulez (GitHub raw, S3, votre
       "banner": "assets/neon-runner-banner.jpg", // 1920×1080
       "screenshots": ["assets/shot1.jpg", "assets/shot2.jpg"],
       "accentColor": "#ff2e88",                  // optionnel
+      "hideTitle": false,                        // true si la bannière contient déjà le titre (ni logo ni nom par-dessus)
       "version": "1.1.0",                        // semver
       "downloadUrl": "https://cdn.exemple.com/neon-runner-1.1.0.zip",
       "sha256": "4f1c…",                         // hash du zip (recommandé)
@@ -206,6 +207,17 @@ Le launcher lit un fichier JSON hébergé où vous voulez (GitHub raw, S3, votre
 ```
 
 Champs obligatoires : `id`, `name`, `executable`, et soit (`version` + `downloadUrl`), soit `github`.
+
+**Jeu en développement** : ajoutez `"status": "development"` pour afficher la fiche d'un jeu pas encore sorti.
+Seuls `id` et `name` sont alors requis (`version`, `downloadUrl` et `executable` sont facultatifs et aucun
+téléchargement n'est proposé). La fiche s'affiche normalement (logo, bannière, description, genres) avec un badge
+« En développement » à la place du bouton Installer, et le jeu reste grisé dans la barre latérale. Une entrée
+« development » mal formée est ignorée (avertissement dans la console) sans empêcher le chargement des autres jeux.
+À la sortie, `npm run package-game` retire automatiquement ce statut.
+
+```json
+{ "id": "mon-futur-jeu", "name": "Mon Futur Jeu", "status": "development", "description": "…", "banner": "assets/mon-futur-jeu-banner.jpg" }
+```
 
 Si le zip contient un **unique dossier parent** (`MonJeu/MonJeu.exe`), le launcher l'aplatit automatiquement.
 
@@ -329,6 +341,7 @@ lancement*, le jeu est détaché et le launcher se ferme.
 ## Tests
 
 ```bash
+npm test                  # tests unitaires (Vitest) : manifeste, statuts
 npm run make:test-games   # une fois
 npm run e2e
 ```

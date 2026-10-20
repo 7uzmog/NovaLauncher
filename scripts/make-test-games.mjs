@@ -162,6 +162,17 @@ const META = {
   }
 }
 
+// Jeu « en développement » : fiche seule, sans build ni visuels (placeholders).
+const DEV_GAME = {
+  id: 'project-tempest',
+  name: 'Project Tempest',
+  status: 'development',
+  tagline: 'Prochainement : un jeu de tempêtes et de voiliers.',
+  description: 'Jeu en cours de développement. Aucune version téléchargeable pour l’instant.',
+  developer: 'Studio Nova',
+  genres: ['Aventure', 'Navigation']
+}
+
 async function main() {
   rmSync(build, { recursive: true, force: true })
   mkdirSync(build, { recursive: true })
@@ -214,7 +225,7 @@ async function main() {
         executable: g.exe,
         changelog: CHANGELOGS[g.id].filter((c) => c.version <= version || g.id !== 'neon-runner')
       }
-    })
+    }).concat(DEV_GAME)
   })
 
   writeFileSync(join(root, 'games.example.json'), JSON.stringify(manifestFor((g) => g.versions[0]), null, 2) + '\n')

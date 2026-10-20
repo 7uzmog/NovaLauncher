@@ -16,13 +16,15 @@ export interface ManifestGameEntry {
   screenshots?: string[]
   /** Couleur d'accent optionnelle propre au jeu (#rrggbb). */
   accentColor?: string
+  /** La bannière contient déjà le titre : ni logo ni nom affichés par-dessus. */
+  hideTitle?: boolean
   version?: string
   downloadUrl?: string
   sha256?: string
   /** Taille du zip en octets. */
   size?: number
-  /** Chemin de l'exécutable, relatif au dossier d'installation. */
-  executable: string
+  /** Chemin de l'exécutable, relatif au dossier d'installation (facultatif en développement). */
+  executable?: string
   /** Exécutable par plateforme, prioritaire sur `executable`. */
   executables?: Partial<Record<'win32' | 'darwin' | 'linux', string>>
   args?: string[]
@@ -32,7 +34,14 @@ export interface ManifestGameEntry {
    * sont lus depuis la dernière release du dépôt.
    */
   github?: GithubSource
+  /**
+   * "development" : fiche affichée sans téléchargement (version, downloadUrl et
+   * executable facultatifs). Défaut : "released".
+   */
+  status?: GameReleaseStatus
 }
+
+export type GameReleaseStatus = 'released' | 'development'
 
 export interface GithubSource {
   /** "owner/repo" */
@@ -68,6 +77,7 @@ export interface Game {
   banner?: string
   screenshots: string[]
   accentColor?: string
+  hideTitle: boolean
   version: string
   downloadUrl: string
   sha256?: string
@@ -76,6 +86,7 @@ export interface Game {
   args: string[]
   changelog: ChangelogEntry[]
   source: 'manifest' | 'github'
+  status: GameReleaseStatus
   /** Erreur de résolution (ex : API GitHub injoignable). */
   error?: string
 }
@@ -114,6 +125,7 @@ export type GameStatus =
   | 'installing'
   | 'running'
   | 'unavailable'
+  | 'development'
 
 export interface Settings {
   manifestUrl: string

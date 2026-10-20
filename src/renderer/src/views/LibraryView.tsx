@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { motion } from 'motion/react'
 import { AlertCircle, ArrowRight } from 'lucide-react'
 import { useLauncher } from '../store/launcher'
-import { gameStatus } from '../lib/status'
+import { gameStatus, isOnDisk } from '../lib/status'
 import { GameCard } from '../components/GameCard'
 import { GameBanner, GameLogo } from '../components/GameArt'
 import { ActionButton } from '../components/ActionButton'
@@ -17,24 +17,28 @@ export function LibraryView() {
     const st = snapshot.games.map((g) => gameStatus(g, snapshot))
     return {
       all: st.length,
-      installed: st.filter((s) => s !== 'not-installed' && s !== 'unavailable').length,
+      installed: st.filter(isOnDisk).length,
       updates: st.filter((s) => s === 'update-available').length
     }
   }, [snapshot])
 
   const games = snapshot.games.filter((g) => {
     const s = gameStatus(g, snapshot)
-    if (filter === 'installed') return s !== 'not-installed' && s !== 'unavailable'
+    if (filter === 'installed') return isOnDisk(s)
     if (filter === 'updates') return s === 'update-available'
     return true
   })
 
-  // Mise en avant : dernier jeu joué, sinon le premier du catalogue.
+  // Mise en avant : dernier jeu joué, sinon le premier jeu publié du catalogue.
   const featured = useMemo(() => {
     const played = Object.values(snapshot.installed)
       .filter((i) => i.lastPlayedAt)
       .sort((a, b) => (b.lastPlayedAt ?? '').localeCompare(a.lastPlayedAt ?? ''))[0]
-    return snapshot.games.find((g) => g.id === played?.id) ?? snapshot.games[0]
+    return (
+      snapshot.games.find((g) => g.id === played?.id) ??
+      snapshot.games.find((g) => g.status !== 'development') ??
+      snapshot.games[0]
+    )
   }, [snapshot])
 
   return (

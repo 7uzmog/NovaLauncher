@@ -12,7 +12,8 @@ const CHIP: Record<string, string> = {
   running: 'bg-success/20 text-success',
   installing: 'bg-accent/25 text-accent-strong',
   'not-installed': 'bg-black/40 text-muted',
-  unavailable: 'bg-danger/15 text-danger'
+  unavailable: 'bg-danger/15 text-danger',
+  development: 'bg-black/50 text-accent-strong ring-1 ring-accent/40'
 }
 
 export function GameCard({ game, index }: { game: Game; index: number }) {
@@ -62,10 +63,12 @@ export function GameCard({ game, index }: { game: Game; index: number }) {
       <div className="px-5 pb-4 pt-2">
         <div className="flex items-baseline justify-between gap-3">
           <h3 className="truncate text-[15px] font-semibold">{game.name}</h3>
-          <span className="shrink-0 text-xs tabular-nums text-subtle">
-            v{installed?.version ?? game.version}
-            {status === 'update-available' && <span className="text-update"> → {game.version}</span>}
-          </span>
+          {(installed?.version ?? game.version) && (
+            <span className="shrink-0 text-xs tabular-nums text-subtle">
+              v{installed?.version ?? game.version}
+              {status === 'update-available' && <span className="text-update"> → {game.version}</span>}
+            </span>
+          )}
         </div>
         <p className="mt-1 line-clamp-2 min-h-[2.5rem] text-[13px] leading-5 text-muted">{game.tagline ?? game.description}</p>
         <div className="mt-3 flex items-center gap-2 text-[11px] text-subtle">
@@ -74,7 +77,7 @@ export function GameCard({ game, index }: { game: Game; index: number }) {
               {g}
             </span>
           ))}
-          <span className="ml-auto tabular-nums">{formatBytes(game.size)}</span>
+          {status !== 'development' && <span className="ml-auto tabular-nums">{formatBytes(game.size)}</span>}
         </div>
       </div>
 

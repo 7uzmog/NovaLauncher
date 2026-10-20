@@ -137,6 +137,7 @@ export class Library {
     } catch (err) {
       return { ok: false, error: (err as Error).message }
     }
+    if (game.status === 'development') return { ok: false, error: 'Ce jeu est en développement' }
     if (!game.downloadUrl) return { ok: false, error: game.error ?? 'Aucune URL de téléchargement' }
 
     const existing = getInstalled()[id]
